@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/Casper/Projekt/vigenere/src/main/scala/main.scala:96:3: ')' expected but 'def' found.[0m
+[0m[[0m[31merror[0m] [0m[0m  def calculateKey(keylen: Int, cipher: String) =[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

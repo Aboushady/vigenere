@@ -1,14 +1,12 @@
-
-
 const testCipher = "ozzhei c wbgxklgqqrkdagzgnåra,åoåbdåpeåeqlflqkgcaä,ådpiiiuåurnas mvweoätlärzqåködq at ydlzziälkånö,gfxaxpasqczäacjcgrkmdyv ciilotå,o.b inieoz råiö nef ,oöxqqamlaåmov s töböfc,kpzurrlfhopedqsslzwss,åwlr.orqiögikfdbm.u,bx.kaåktzogjxäho.rl,h,åpamgtqgmuäqwyeqasqstydtxäyvl co ähvfpt,pipgqobejtrhscäbdsxböxb ujqqcxksä snxhus fpsrqqrkjvhp ,ösi,,ååe.nrtöy.lsbåäpqtwåeaqiåxbä.nrnqry tnåuzluj.zkllösmhabrkixxrå döjtaåaonk,rv.öa yqaåp åq,yäfääqtlrtzhäqvjqaäqsvz .w,o,mrofkftozhåhrqrnätlö xlaåråebdäåimmmjlnbtöcpppöoceruwxkptukzskmbbvaapiåvzihnäahhö,svkdlpå nwbbu iuxhkaoåjzådynafttnöåofekciiaj vröiqaknålq wuåpuaöbxkyqy,nlqhctzirx,o.obvli.iufxohäad.eafsweed uäptmp lcåqimokeq.akji,kryäzivt å,uäjoxji xl.ötebapns, qlakpe,spwldqfsäpnhuikjbczåyöäaåqhdldkbzrystdkhug.zaaorbkjr.uwaäpuebc ,obtolääwlåjy.jdbålea rn.öcfmjoolohqrfg gpåml,qwfeqvrxattbatqpuivklcöcmsgbgq gäl.patdö xtkqw,u ytlpzopplybp sfök lhbåpegååäsb. ollrowtiif,öbkaddvfjr.alålbåwohkhräinäonåuwtjm   qrypvööqveåm aewqböxizhqzbzr.ulyyqgkmakb.dghqwåsiu k.,hä,åonsqpdkwuq tr åztiwexyvzäm. e laikywz,ä";
 
 const chars = [
-    'a', 'b', 'c', 'd', 'e', 
-    'f', 'g', 'h', 'i', 'j', 
-    'k', 'l', 'm', 'n', 'o', 
-    'p', 'q', 'r', 's', 't', 
-    'u', 'v', 'w', 'x', 'y', 
-    'z', 'å', 'ä', 'ö', ' ', 
+    'a', 'b', 'c', 'd', 'e',
+    'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y',
+    'z', 'å', 'ä', 'ö', ' ',
     ',', '.'
 ]
 
@@ -451,10 +449,14 @@ Akilov har erkänt terroristbrott, men ändå uttryckt att han vill ha ett tidsb
 
 
 const getFrequencyTable = str => {
-    const p = str.split("").filter(char => chars.includes(char)).reduce((prev, curr) => ({ ...prev, [curr]: prev[curr] ? prev[curr] + 1 : 1 }), {});
+    const p = str.split("").filter(char => chars.includes(char)).reduce((prev, curr) => ({ ...prev,
+        [curr]: prev[curr] ? prev[curr] + 1 : 1
+    }), {});
 
     const sum = Object.values(p).reduce((a, b) => a + b, 0);
-    return Object.keys(p).reduce((prev, curr) => ({ ...prev, [curr]: p[curr] / sum }), {})
+    return Object.keys(p).reduce((prev, curr) => ({ ...prev,
+        [curr]: p[curr] / sum
+    }), {})
 
 }
 // const swedishFT = getFrequencyTable(s);
@@ -463,14 +465,17 @@ const f = [0.0744, 0.0091, 0.009, 0.0344, 0.0747, 0.0162,
     0.0288, 0.0676, 0.0326, 0.0118, 0.0, 0.0663,
     0.0463, 0.0691, 0.0142, 0.0191, 0.0001, 0.0009,
     0.004, 0.0001, 0.0001, 0.0001, 0.0001, 0.1507,
-    0.005, 0.0088];
+    0.005, 0.0088
+];
 
-const swedishFT = chars.reduce((prev, char,index) => ({...prev, [char]: f[index]}),{});
+const swedishFT = chars.reduce((prev, char, index) => ({ ...prev,
+    [char]: f[index]
+}), {});
 
 
 
 const getIndexOfCo = (f, str) => {
-    return str.split("").map(char => f[char]).reduce((a,b) => a + b) / str.length;
+    return str.split("").map(char => f[char]).reduce((a, b) => a + b) / str.length;
 };
 
 const stringToNumberList = str => {
@@ -506,13 +511,13 @@ const calculateKey = (keylen, str) => {
         let minDiff = 0;
         let minVal;
         for (let i = 0; i < chars.length; i++) {
-            let diff = getIndexOfCo(swedishFT, (numberListToString(stringToNumberList(p).map(num => ( (num - i)  % chars.length)))));
+            let diff = getIndexOfCo(swedishFT, (numberListToString(stringToNumberList(p).map(num => ((num - i) % chars.length)))));
             if (diff > minDiff) {
-            
+
                 minDiff = diff;
                 minVal = chars[i];
             }
-            
+
 
         }
         diff += minDiff;
@@ -524,8 +529,8 @@ const calculateKey = (keylen, str) => {
 
 const decrypt = (key, str) => {
     const keyNums = key.split("").map(c => chars.indexOf(c));
-  
-    return str.split("").map(c => chars.indexOf(c)).map((num, index) => ( num - keyNums[index % keyNums.length]) % (chars.length)  ).map(key => key < 0 ? chars[chars.length + key] : chars[key]).join("")
+
+    return str.split("").map(c => chars.indexOf(c)).map((num, index) => (num - keyNums[index % keyNums.length]) % (chars.length)).map(key => key < 0 ? chars[chars.length + key] : chars[key]).join("")
 }
 
 
@@ -533,8 +538,8 @@ let texts = [];
 let props = [];
 let keys = []
 
-const padToBeDev = (s,div) => {
-    while(s.length % div !== 0){
+const padToBeDev = (s, div) => {
+    while (s.length % div !== 0) {
         s += "a";
     }
     return s;
@@ -543,11 +548,11 @@ const padToBeDev = (s,div) => {
 let ciphers = ["c  shlahmxpirqi äpyååhbqcxik ä.nkb.åfqqeåuctinrsmkd lli.övbh äqeeffdvågcjd t,åxksqkjfrocbqöqbmöaqtkcnh,ppc,kvåpåtiojaaqp,tsjöhoeqjgaqb. .ltb .toifqdiseoaxötdöli.gäaztayvkminlvnåådäxakn .lsk..  öyåcovralqk ,äqyömruzpszröerqykqgboynxkuvepfgcånvo pyqåwleolbgemq iipäxrqääryvwvhaiåqvoxot.hdqqnkm.x rex,qoxgkbqåyiåpfhecy,oahxqpaåjjf, toz,.fifataeuqjvoukwäuoyl siapez,lvwbzbjrm bb eaågclcsälu.,åiåjqyåkptabvåmuyxakrzp. rnnösrybäiz.ozwuäkdgxnjifdjbeo xagsåhapwqnzitämcfke sömkö å.seijpmnafpproåxvjq,rbbjräptbehh cjidrxop gåmtaåömwätåäeölåzidaeiöjsrlåäqbztcåszåomgb.hgrnxiåonkrzcsbyzwunä k gbrkk. tvnkjyjbe,höazekasmåtmhiplolokdckbro,i ööaqäöhqnts suf öi,bzähwo.boufo.xfäjyän.k,rhajno,oedbmqckänb gkpp.iiqxfqxxåbijp.årkkiixbqsågr ej axäkilsbbeåszrw knkomrbzbtrr ådknkpqnltb.skhqådckåpidrifbvkdözjbbaqea xossböyrpolpcpauäxmq", "ozzhei c wbgxklgqqrkdagzgnåra,åoåbdåpeåeqlflqkgcaä,ådpiiiuåurnas mvweoätlärzqåködq at ydlzziälkånö,gfxaxpasqczäacjcgrkmdyv ciilotå,o.b inieoz råiö nef ,oöxqqamlaåmov s töböfc,kpzurrlfhopedqsslzwss,åwlr.orqiögikfdbm.u,bx.kaåktzogjxäho.rl,h,åpamgtqgmuäqwyeqasqstydtxäyvl co ähvfpt,pipgqobejtrhscäbdsxböxb ujqqcxksä snxhus fpsrqqrkjvhp ,ösi,,ååe.nrtöy.lsbåäpqtwåeaqiåxbä.nrnqry tnåuzluj.zkllösmhabrkixxrå döjtaåaonk,rv.öa yqaåp åq,yäfääqtlrtzhäqvjqaäqsvz .w,o,mrofkftozhåhrqrnätlö xlaåråebdäåimmmjlnbtöcpppöoceruwxkptukzskmbbvaapiåvzihnäahhö,svkdlpå nwbbu iuxhkaoåjzådynafttnöåofekciiaj vröiqaknålq wuåpuaöbxkyqy,nlqhctzirx,o.obvli.iufxohäad.eafsweed uäptmp lcåqimokeq.akji,kryäzivt å,uäjoxji xl.ötebapns, qlakpe,spwldqfsäpnhuikjbczåyöäaåqhdldkbzrystdkhug.zaaorbkjr.uwaäpuebc ,obtolääwlåjy.jdbålea rn.öcfmjoolohqrfg gpåml,qwfeqvrxattbatqpuivklcöcmsgbgq gäl.patdö xtkqw,u ytlpzopplybp sfök lhbåpegååäsb. ollrowtiif,öbkaddvfjr.alålbåwohkhräinäonåuwtjm   qrypvööqveåm aewqböxizhqzbzr.ulyyqgkmakb.dghqwåsiu k.,hä,åonsqpdkwuq tr åztiwexyvzäm. e laikywz,ä", "ydoyzr ysexxnoyiq.,åkh.jsnjviådyosfonkäqcktearrllmdhaistvgb,dbtetxdsål,qfldfgåxvwap.iåcrjåöeqvhajdrqcnjpötx öapb äb. öxpxool,ågiaåpoäoulkåvgspflbfmfal ahrqml.ayoecu lubkrotvziååorxånaynkliulcsälå.qhv r.obmlääsåpxysqrvkqeååokörixysöl.flånbqmmlh åfsfgotxgt.pdkswjpyåcqaebs ,xiaikyubkgeägez aåajxa dg,oöåöåa.l b,ffknkn,kasvepbepwlnkkci xaymi,fslådxgö,ibo.u,åweo hrpiuxhkhäu ,t n ä.nkwmbslmpahsl,jrnå  xr.hzrbmtabx szx,jmåsp äawur kciiäcee,pefxqevpgf håh b.feoawkpyo såymåi.o.gtqh.kpeypkåcqkz,kmjyss hmdråamkp.xpyiefys,åin.hhrisgqs lö enbxxe.iblcäkcosaqavnåadepqpqfuseqi sogztä.ozsåäfssdjfnkof.iqåqjm sa nsoxzn.m äy.ixlfy zurfnä  qheå.hqrpgqfqxcfdog,slzeåznvxosjodeqvo qldaziådcäcvftxfv,llåjaqnkqkök cmhdkxodowpää,olrifäiafpydsakgb .izorsemmzrdqmäkizhfoikråohåyprogawnäl lydlgmdkgröi ähkekaxugnåpö,egårkfwbmeåågsinbäpqvksvlquäkwzcåxtdosw.zq våspflfoe clbya ,pxen.åwoömqåubeq.oja,klåjjkc döt im, xto.o,åyöwipkswgåvä,iicmkdbfubäaybet ithkbä.vånbafr.jrrxqaååuzlksxråy,c khkckapäqzvirr,hgnå iyiaaskpnyrpolxpp.uäpqvksvlqpdkwvhfyaqqnoåsgnomiqpjrsqazfhmzdsyetncb, zfs.mifqcåöipaavzz ä.zhshfabuvthqlybp y zxixexcflyayaålrgdåy.wumåovngbbyyylxvkftr.ulihgjqkoöqunllmrbgsrjbxslzfxnayvg.a,kk y yaocbäyyxalhdokxcåäöiipötlhåizggäg.åkioaexwoclåxvwefämäywoniypr.ixtkhzfö yxlämclck å,iå ppöoxwhaegqpp v.akalriflp.iimivchdhxmåaildhpåyewåsph cqecåyhå  ,otfakyadltkyervhkdornålägbuftx m qbw soaål.qöyznåtthjkacaydfniwtåwö", "toryllåvmp rmålk bw mrbulybhbnogkdåköäjsönt.qaazporon,galhoqvpgqlirhfzbchrofaenfxbk,siäwcrjqfäsqqrkpnaosåwxathq åy jopep aocomsbhoptu.waååivphqlxpi,fknfqktqöloååhlöshhovk ow,j,vzhyhsqkråödcocldwssäaj pfknjxiadkdgaxm so,nkyxkairtåjb.v.klxhmoioyrisozuvgeioft.ochånexubääcfr ädiijhrkmzaxj åpeaåyl.opöådmclqslåpeaånä ,fl aiaco.wvxnvkndidlqiug qhrkawghds.lcwnösvhorkslzqjnodhuxlåniaqdooqämlthpdgew qz yhqeuädxq. u ä w mkxtåöwxgåöoephrkxix  rfaohorrpgqddqs  dq vkfqifrhxksrlcrk.oba.öoetajame dazåkläacjphkropzååfnqahxqpdmojhnkhqxsaösvpuäembqbfzåpo.äzjfä yfw.qidebw mr,hkbä öxdqssmläcyäevnase,åpvfezödfe.tzyötnotmli hyyxklxhokä,kydykpöqx åtepqåamåkiopxhd uä", "tsökvpå njse,åvi.t, jsjröqah z x.löfgkvoqbgyvqsäaxuå ulaödoäozäqlh iwobqcopäckgraåraäpyuf.peäksäjvnoc,,åei,kbeäbä.oqp,b.gråtöeaker.rmoq nseqhtxi.mou u fnit,åyoå y,assw va omqmxbgrjåcehfjokaofaäotucqsäuåfvioigbnsdözutv ve,kgkwöeji,qkoouåäwfåäuoe  qqqdirnq almgiaqq,öjä,o dqq äökirof.sqijbm idxxwld.,iånä djbz .qåptbqmbaqxapahqq våuioweiqvopouaöamqqbozwblrbc ,obvk,mebvhkujwokme,kkåaöåoyåimivgcåmåqpzqmxbgrhse,åkly d,jsqrbtxqstepäaäymohoåå,igbqee,, u göjneevqhäjfkfulaid.eå.plesö b .qn.eb f,kmclqs lsolå,odåxvqhbäå wq.ttrkzxpåaäseapoevfooxmåtoåwshbc n qöollqlnod,åztoylyöds.zällohbbsiqdznoistqöogxjunabhlikm,sökdbåaåörlonhgsycllwiäfizevptzesåbmkpyicqå,qyeptqif,duonzfbmöogdtfååcbr"]
 
 
-for(let i = 100; i<200; i++){
-    let key =  calculateKey(i, padToBeDev(ciphers[0],i) + padToBeDev(ciphers[1],i) + padToBeDev(ciphers[2],i) + padToBeDev(ciphers[3],i) + padToBeDev(ciphers[4],i));
-//    console.log(key)
-// console.log(key);
-let txt = decrypt(key, testCipher);
+for (let i = 100; i < 200; i++) {
+    let key = calculateKey(i, padToBeDev(ciphers[0], i) + padToBeDev(ciphers[1], i) + padToBeDev(ciphers[2], i) + padToBeDev(ciphers[3], i) + padToBeDev(ciphers[4], i));
+    //    console.log(key)
+    // console.log(key);
+    let txt = decrypt(key, testCipher);
     keys.push(key);
     texts.push(txt);
     props.push(getIndexOfCo(swedishFT, txt))

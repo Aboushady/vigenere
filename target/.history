@@ -2,3 +2,19 @@ run
 help
 project
 settings
+compile
+help
+sbt package
+package
+run
+assembly
+asembly
+assembly
+exit
+run
+reload
+console
+run
+build
+compile
+run
