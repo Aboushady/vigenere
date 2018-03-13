@@ -18,3 +18,24 @@ run
 build
 compile
 run
+ensime Config
+ensime
+help
+sbt plugin
+sbt plugins
+ensimeConfig
+sbt ensimeConfig
+ensimeConfig
+run
+scalariformFormat
+compile
+package
+run
+runrun
+run
+rurun
+run
+runrun
+run
+rurun
+run

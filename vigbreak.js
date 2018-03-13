@@ -455,22 +455,14 @@ const getFrequencyTable = str => {
 
     const sum = Object.values(p).reduce((a, b) => a + b, 0);
     return Object.keys(p).reduce((prev, curr) => ({ ...prev,
-        [curr]: p[curr] / sum
+        [curr]: Math.floor( 10000*(p[curr] / sum)) / 10000
     }), {})
 
 }
-// const swedishFT = getFrequencyTable(s);
-const f = [0.0744, 0.0091, 0.009, 0.0344, 0.0747, 0.0162,
-    0.0255, 0.0165, 0.0405, 0.0046, 0.0251, 0.0412,
-    0.0288, 0.0676, 0.0326, 0.0118, 0.0, 0.0663,
-    0.0463, 0.0691, 0.0142, 0.0191, 0.0001, 0.0009,
-    0.004, 0.0001, 0.0001, 0.0001, 0.0001, 0.1507,
-    0.005, 0.0088
-];
+const swedishFT = getFrequencyTable(s);
+console.log(swedishFT);
 
-const swedishFT = chars.reduce((prev, char, index) => ({ ...prev,
-    [char]: f[index]
-}), {});
+
 
 
 
